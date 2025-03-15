@@ -1,0 +1,36 @@
+<script type="text/javascript">
+    RED.nodes.registerType("JS Template", {
+        category: "function",
+        color: "#d28b5c",
+        defaults: {
+            name: { value: "" },
+            template: { value: "" },
+            property: { value: "payload" } // Add default for property
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "js-template.svg",
+        label: function() {
+            return this.name || "JS Template";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="JS Template">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label> <!-- Added Name field -->
+        <input type="text" id="node-input-name" style="width: 100%;">
+    </div>
+    <div class="form-row"> <!-- Add property input field -->
+        <label for="node-input-property"><i class="icon-tag"></i> Property</label>
+        <input type="text" id="node-input-property" style="width: 100%;" placeholder="payload">
+    </div>
+    <div class="form-row">
+        <label for="node-input-template"><i class="icon-tag"></i> Template</label>
+        <textarea id="node-input-template" rows="20" style="width: 100%;"></textarea>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="JS Template">
+    <p>This node implements a JS template.</p>
+</script>

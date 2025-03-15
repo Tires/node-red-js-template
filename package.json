@@ -1,0 +1,24 @@
+{
+    "name": "@intersult/js-template",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node-red --userDir ./.node-red --verbose",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "node-red"
+    ],
+    "author": "",
+    "license": "ISC",
+    "description": "Javascript template Node for Node-RED",
+    "dependencies": {
+        "node-red": ">=3.0.0"
+    },
+    "node-red": {
+        "version": ">=3.0.0",
+        "nodes": {
+            "js-template": "js-template/index.js"
+        }
+    }
+}
