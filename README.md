@@ -31,14 +31,14 @@ Restart Node-RED after installation.
 1. Drag the **JS Template** node into your Node-RED flow.
 2. Configure the node:
    - **Name**: A custom name for the node.
-   - **Template**: The JavaScript template string containing placeholders (e.g., `Hello, {{msg.name}}!`).
+   - **Template**: The JavaScript template string containing placeholders (e.g., `Hello, {{name}}!`).
    - **Property**: The message property where the result will be stored (default: `payload`).
 3. Connect the node to other nodes in your flow.
 4. Inject a message with the required properties, and the node will replace placeholders with evaluated values.
 
 ### Example
 
-If the template is `Hello, {{msg.name}}!` and the input message is:
+If the template is `Hello, {{name}}!` and the input message is:
 
 ```json
 {
@@ -60,7 +60,7 @@ This node uses `eval()` to evaluate JavaScript expressions. Be cautious when usi
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC-License. See the [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
