@@ -1,6 +1,2 @@
 node_modules/
 .node-red/
-.config.*
-.flows*
-flows.json
-flows_*.json
