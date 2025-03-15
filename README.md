@@ -17,6 +17,15 @@ npm install <path-to-this-repository>
 
 Restart Node-RED after installation.
 
+## Docker
+
+```bash
+cd /data
+npm install https://github.com/Tires/node-red-js-template.git
+```
+
+Restart Node-RED after installation.
+
 ## Usage
 
 1. Drag the **JS Template** node into your Node-RED flow.
