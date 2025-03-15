@@ -6,8 +6,10 @@ module.exports = function(RED) {
         node.template = config.template;
         node.property = config.property || "payload";
         node.on("input", function(msg) {
-            result = node.template.replace(/{{(.*?)}}/g, (_match, p1) => {
-                return eval(p1);
+            result = node.template.replace(/{{(.*?)}}/g, function(_match, p1) {
+                with (msg) {
+                    return eval(p1);
+                }
             });
             msg[node.property] = result;
             node.send(msg);
