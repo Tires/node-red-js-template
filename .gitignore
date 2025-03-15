@@ -1,5 +1,5 @@
 node_modules/
-.red-node/
+.node-red/
 .config.*
 .flows*
 flows.json
