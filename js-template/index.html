@@ -6,7 +6,8 @@
             name: { value: "" },
             entries: [{
                 property: "payload",
-                template: ""
+                template: "",
+                type: "text"
             }]
         },
         inputs: 1,
@@ -18,7 +19,7 @@
         oneditprepare: function() {
             let node = this;
 
-            function addRow(entry = { property: "payload", template: "" }) {
+            function addRow(entry = { property: "payload", template: "", type: "text" }) {
                 let index = $("#node-input-entries-container .form-row").length;
                 let row = $("<div/>", {
                         class: "form-row"
@@ -28,9 +29,24 @@
                 $("<input/>", {
                         type: "text",
                         class: "node-input-property",
-                        style: "width: 100%;",
+                        style: "width: 40%;",
                         placeholder: "payload"
                     }).val(entry.property).appendTo(row);
+                $("<select/>", {
+                        class: "node-input-type",
+                        style: "width: 40%; margin-left: 5px;"
+                    })
+                    .append($("<option/>", { value: "text", text: "Text" }))
+                    .append($("<option/>", { value: "JSON", text: "JSON" }))
+                    .val(entry.type || "text").appendTo(row);
+
+                $("<textarea/>", {
+                        class: "node-input-template",
+                        rows: 20,
+                        style: "width: 100%; margin-top: 3px;",
+                        placeholder: "{{ payload }}"
+                    }).val(entry.template).appendTo(row);
+
                 if (index > 0) {
                     $("<button/>", {
                             class: "red-ui-button red-ui-button-small",
@@ -42,17 +58,10 @@
                             row.remove();
                         });
                 }
-
-                $("<textarea/>", {
-                        class: "node-input-template",
-                        rows: 20,
-                        style: "width: 100%; margin-top: 3px;",
-                        placeholder: "{{ payload }}"
-                    }).val(entry.template).appendTo(row);
             }
 
             let container = $("#node-input-entries-container").empty();
-            (node.entries || [{ property: "payload", template: "" }]).forEach(entry => addRow(entry));
+            (node.entries || [{ property: "payload", template: "", type: "text" }]).forEach(entry => addRow(entry));
 
             $("#node-input-add-entry").off("click").on("click", function() {
                 addRow();
@@ -62,8 +71,9 @@
             let entries = [];
             $("#node-input-entries-container .form-row").each(function() {
                 let property = $(this).find(".node-input-property").val();
+                let type = $(this).find(".node-input-type").val();
                 let template = $(this).find(".node-input-template").val();
-                entries.push({ property, template });
+                entries.push({ property, type, template });
             });
             this.entries = entries;
         }

@@ -5,7 +5,8 @@ module.exports = function(RED) {
         node.name = config.name;
         node.entries = config.entries || [{
             property: "payload",
-            template: ""
+            template: "",
+            type: "text"
         }];
         node.on("input", function(msg) {
             node.entries.forEach(entry => {
@@ -14,6 +15,13 @@ module.exports = function(RED) {
                         return eval(p1);
                     }
                 });
+                if (entry.type === "JSON")
+                    try {
+                        result = JSON.parse(result);
+                    }
+                    catch (e) {
+                        node.error("Error parsing JSON: " + e.message);
+                    }
                 msg[entry.property] = result;
             });
             node.send(msg);
