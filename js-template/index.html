@@ -36,8 +36,9 @@
                         class: "node-input-type",
                         style: "width: 40%; margin-left: 5px;"
                     })
-                    .append($("<option/>", { value: "text", text: "Text" }))
-                    .append($("<option/>", { value: "JSON", text: "JSON" }))
+                    .append($("<option/>", { value: "text", text: "Text Template" }))
+                    .append($("<option/>", { value: "JSON", text: "JSON Template" }))
+                    .append($("<option/>", { value: "JS", text: "JavaScript" }))
                     .val(entry.type || "text").appendTo(row);
 
                 $("<textarea/>", {

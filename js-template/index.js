@@ -10,18 +10,28 @@ module.exports = function(RED) {
         }];
         node.on("input", function(msg) {
             node.entries.forEach(entry => {
-                result = entry.template.replace(/{{(.*?)}}/g, function(_match, p1) {
-                    with (msg) {
-                        return eval(p1);
-                    }
-                });
-                if (entry.type === "JSON")
+                if (entry.type === "JS") {
                     try {
-                        result = JSON.parse(result);
+                        with (msg) {
+                            result = eval(entry.template);
+                        }
+                    } catch (e) {
+                        node.error("Error evaluating JS: " + e.message);
                     }
-                    catch (e) {
-                        node.error("Error parsing JSON: " + e.message);
-                    }
+                } else {
+                    result = entry.template.replace(/{{(.*?)}}/g, function(_match, p1) {
+                        with (msg) {
+                            return eval(p1);
+                        }
+                    });
+                    if (entry.type === "JSON")
+                        try {
+                            result = JSON.parse(result);
+                        }
+                        catch (e) {
+                            node.error("Error parsing JSON: " + e.message);
+                        }
+                }
                 msg[entry.property] = result;
             });
             node.send(msg);
