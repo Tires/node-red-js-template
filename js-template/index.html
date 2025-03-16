@@ -31,7 +31,9 @@
                         class: "node-input-property",
                         style: "width: 40%;",
                         placeholder: "payload"
-                    }).val(entry.property).appendTo(row);
+                    })
+                    .val(entry.property)
+                    .appendTo(row);
                 $("<select/>", {
                         class: "node-input-type",
                         style: "width: 40%; margin-left: 5px;"
@@ -39,14 +41,17 @@
                     .append($("<option/>", { value: "text", text: "Text Template" }))
                     .append($("<option/>", { value: "JSON", text: "JSON Template" }))
                     .append($("<option/>", { value: "JS", text: "JavaScript" }))
-                    .val(entry.type || "text").appendTo(row);
+                    .val(entry.type || "text")
+                    .appendTo(row);
 
                 $("<textarea/>", {
                         class: "node-input-template",
                         rows: 20,
                         style: "width: 100%; margin-top: 3px;",
                         placeholder: "{{ payload }}"
-                    }).val(entry.template).appendTo(row);
+                    })
+                    .val(entry.template)
+                    .appendTo(row);
 
                 if (index > 0) {
                     $("<button/>", {
