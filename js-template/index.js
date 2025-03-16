@@ -3,15 +3,19 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.name = config.name;
-        node.template = config.template;
-        node.property = config.property || "payload";
+        node.entries = config.entries || [{
+            property: "payload",
+            template: ""
+        }];
         node.on("input", function(msg) {
-            result = node.template.replace(/{{(.*?)}}/g, function(_match, p1) {
-                with (msg) {
-                    return eval(p1);
-                }
+            node.entries.forEach(entry => {
+                result = entry.template.replace(/{{(.*?)}}/g, function(_match, p1) {
+                    with (msg) {
+                        return eval(p1);
+                    }
+                });
+                msg[entry.property] = result;
             });
-            msg[node.property] = result;
             node.send(msg);
         });
     }
