@@ -36,6 +36,12 @@ Restart Node-RED after installation.
 3. Connect the node to other nodes in your flow.
 4. Inject a message with the required properties, and the node will replace placeholders with evaluated values.
 
+### Template Types
+
+1. **Text Template**: A simple string template where placeholders (e.g., `{{property}}`) are replaced with evaluated JavaScript expressions from the input message.
+2. **JSON Template**: Similar to Text Template, but the result is parsed as JSON. Use this type when the output needs to be a valid JSON object or array.
+3. **JavaScript**: Allows writing full JavaScript code to generate the output. The code is evaluated in the context of the input message.
+
 ### Example
 
 If the template is `Hello, {{name}}!` and the input message is:
