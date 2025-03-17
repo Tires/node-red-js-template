@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 module.exports = function(RED) {
     function JsTemplate(config) {
         RED.nodes.createNode(this, config);
@@ -12,7 +14,8 @@ module.exports = function(RED) {
             node.entries.forEach(entry => {
                 args = {
                     ...msg,
-                    $env: node._flow._env
+                    $env: node._flow._env,
+                    $now: moment()
                 };
                 let result;
                 if (entry.type === "JS") {

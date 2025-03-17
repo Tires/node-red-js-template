@@ -13,6 +13,7 @@
     "license": "ISC",
     "description": "Javascript template Node for Node-RED",
     "dependencies": {
+        "moment": "~2.30.1"
     },
     "node-red": {
         "version": ">=3.0.0",
