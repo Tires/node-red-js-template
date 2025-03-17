@@ -42,6 +42,8 @@ Restart Node-RED after installation.
 2. **JSON Template**: Similar to Text Template, but the result is parsed as JSON. Use this type when the output needs to be a valid JSON object or array.
 3. **JavaScript**: Allows writing full JavaScript code to generate the output. The code is evaluated in the context of the input message.
 
+**Note**: Environment variables from the flow can be accessed using `$env`. For example, `$env.myVar` will retrieve the value of the environment variable `myVar`.
+
 ### Example
 
 If the template is `Hello, {{name}}!` and the input message is:
