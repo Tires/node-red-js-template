@@ -39,9 +39,11 @@ module.exports = function(RED) {
                             }
                             catch (e) {
                                 node.error("Error parsing JSON: " + e.message);
+                                return;
                             }
                     } catch (e) {
                         node.error("Error evaluating JS: " + e.message);
+                        return;
                     }
                 }
                 msg[entry.property] = result;
