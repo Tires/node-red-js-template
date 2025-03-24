@@ -1,6 +1,18 @@
 const moment = require("moment");
 
 module.exports = function(RED) {
+    function to_function(code) {
+        const func = new Function("args", "with(args) { return " + code + "; }");
+        return function(args) {
+            try {
+                return func(args);
+            } catch (e) {
+                node.error("Error evaluating JS: " + e.message);
+                throw new Error("Error evaluating JS: " + e.message);
+            }
+        };
+    }
+
     function JsTemplate(config) {
         RED.nodes.createNode(this, config);
         var node = this;
@@ -19,31 +31,19 @@ module.exports = function(RED) {
                 };
                 let result;
                 if (entry.type === "JS") {
-                    try {
-                        with (args) {
-                            result = eval(entry.template);
-                        }
-                    } catch (e) {
-                        node.error("Error evaluating JS: " + e.message);
-                    }
+                    result = to_function(entry.template)(args);
                 } else {
-                    try {
-                        result = entry.template.replace(/{{(.*?)}}/g, function(_match, p1) {
-                            with (args) {
-                                return eval(p1);
-                            }
-                        });
-                        if (entry.type === "JSON")
-                            try {
-                                result = JSON.parse(result);
-                            }
-                            catch (e) {
-                                node.error("Error parsing JSON: " + e.message);
-                                return;
-                            }
-                    } catch (e) {
-                        node.error("Error evaluating JS: " + e.message);
-                        return;
+                    result = entry.template.replace(/{{(.*?)}}/g, function(_match, p1) {
+                        return to_function(p1)(args);
+                    });
+                    if (entry.type === "JSON") {
+                        try {
+                            result = JSON.parse(result);
+                        }
+                        catch (e) {
+                            node.error("Error parsing JSON: " + e.message);
+                            return;
+                        }
                     }
                 }
                 msg[entry.property] = result;
